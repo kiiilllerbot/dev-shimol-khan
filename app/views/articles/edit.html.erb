@@ -1,0 +1,15 @@
+<div class="container h-100">
+	<div class="row h-100 justify-content-center align-items-center">
+		<div class="col-lg-10">
+			<div class="box shadow pb-0 p-5">
+				<div class="content">
+					<h2 class="title title--h3">
+						<%= link_to root_path, :method => :get do %>
+							<i class="fas fa-angle-left link pr-1"></i>
+						<% end %>
+					  Edit Article
+					</h2>
+					<%= render 'form', article: @article %>
+		</div>
+	</div>
+</div>

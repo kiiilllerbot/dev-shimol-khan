@@ -1,0 +1,54 @@
+<div id="articles">
+<div class="container-fluid pt-3">
+  <div>
+    <div>
+      <%= link_to root_path do %>
+        <button class="btn mr-2">
+          <i class="fas fa-arrow-circle-left link-white"></i>
+        </button>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <%= link_to new_article_path do %>
+          <button class="btn mr-2">
+            <i class="fas fa-arrow-circle-right link-white"></i>
+          </button>
+        <% end %>
+      <% end %>
+
+      <span class="text-muted">Browse All Articles</span>
+        <div class="float-right">
+          <%= form_tag articles_path, method: :get do %>
+            <%= text_field_tag :search,
+              params[:search],
+              :class=>'input input__icon form-control',
+              :style=>"border: 1px solid #82B1FF",
+              placeholder:'Search Article' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    	<div class="row justify-content-center pt-3 mt-5">
+    <% @articles.each do |article| %>
+      <div class="col-md-4">
+        <div class="card">
+          <%= image_tag(article.image_link, :class=>"card-img-top")%>
+          <div class="card-body">
+            <span class="h5"><%= article.title %></span><br>
+            <span class="text-muted"><%= article.created_at.strftime("%B, %d, %Y") %></span><br>
+            <div class="d-flex flex-row justify-content-between align-items-center">
+                <div>
+                  <%= link_to "Browse", article, :class=>"btn mt-2"%>
+                </div>
+                <div>
+                  <i class="fas fa-heart ml-2"><span class="ml-1"><%= article.get_upvotes.size %></span></i>
+                </div>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+    <% end %>
+	</div>
+  </div>
+</div>

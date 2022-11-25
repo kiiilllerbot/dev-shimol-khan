@@ -1,0 +1,130 @@
+<div class="scroll-line"></div>
+
+<main class="main">
+	<div class="container gutter-top">
+		<div class="row sticky-parent">
+			<!-- Sidebar -->
+			<aside class="col-12 col-md-12 col-xl-3">
+					<div class="sidebar box shadow pb-0 sticky-column">
+						<svg class="avatar avatar--180" viewBox="0 0 188 188">
+							<g class="avatar__box">
+								<image xlink:href="https://i.imgur.com/KB0NSMP.jpg" height="100%" width="100%" />
+							</g>
+						</svg>
+						<div class="text-center">
+							<h3 class="title title--h3 sidebar__user-name">Shimol <span class="weight--500">Khan</span></h3>
+							<div class="badge badge--light">Software Developer</div>
+
+							<!-- Social -->
+							<div class="social">
+								<a class="social__link" href="https://www.facebook.com/shimolkhan.alive/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+								<a class="social__link" href="https://www.instagram.com/shimolkhan.dev/" target="_blank"><i class="fab fa-instagram"></i></a>
+								<a class="social__link" href="https://twitter.com/dev_shimolkhan" target="_blank"><i class="fab fa-twitter"></i></a>
+								<a class="social__link" href="https://www.linkedin.com/in/shimol-khan/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+								<a class="social__link" href="https://github.com/Shimol-Khan" target="_blank"><i class="fab fa-github"></i></a>
+							</div>
+						</div>
+
+						<div class="sidebar__info box-inner box-inner--rounded">
+							<ul class="contacts-block">
+								<li class="contacts-block__item" data-toggle="tooltip" data-placement="top" title="Birthday">
+									<i class="fas fa-birthday-cake mr-3"></i>October 26, 1994
+								</li>
+								<li class="contacts-block__item" data-toggle="tooltip" data-placement="top" title="Address">
+									<i class="fas fa-map-marker-alt mr-3"></i>Kuala Lumpur, Malaysia
+								</li>
+								<li class="contacts-block__item" data-toggle="tooltip" data-placement="top" title="E-mail">
+									<a href="mailto:example@mail.com"><i class="fas fa-envelope mr-3"></i>shimolkhan.dev@gmail.com</a>
+								</li>
+								<li class="contacts-block__item" data-toggle="tooltip" data-placement="top" title="Phone">
+									<i class="fas fa-mobile mr-3"></i>+60 (111) 67-53-634
+								</li>
+							</ul>
+
+							<%= link_to "/shimol-khan-resume-v3.pdf", :class=>"btn", target: "_blank" do %>
+								<i class="far fa-arrow-alt-circle-down mr-1"></i> Download Resume
+							<% end %>
+
+							<div class="d-flex mt-3 justify-content-center">
+								<% if user_signed_in? %>
+									<div class="mr-2">
+										<%= link_to "Logout", destroy_user_session_path, method: :delete, :class=>"link" %>
+									</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</aside>
+
+			<!-- Content -->
+			<div class="col-12 col-md-12 col-xl-9">
+				<div class="box shadow pb-0">
+					<!-- Post -->
+					<div class="pb-3">
+						<header class="header-post">
+							<div class="header-post__date">
+								<div class="float-left">
+								<%= link_to articles_path, :method => :get do %>
+									<i class="fas fa-arrow-left fa-2x link pr-1"></i>
+								<% end %>
+								</div>
+								<%= @article.created_at.strftime("%B, %d, %Y")%>
+							</div>
+							<h1 class="title title--h1">
+								<%= @article.title %>
+							</h1>
+							<div class="header-post__image-wrap">
+								<%= image_tag(@article.image_link, :class=>"cover lazyload")%>
+							</div>
+						</header>
+						<div class="caption-post">
+							<p class="text-justify"><%= sanitize @article.body %></p>
+						</div>
+
+						<footer class="footer-post text-center">
+							<p>Shimol Khan
+							</p>
+						</footer>
+
+						<!------------------------------ Vote ---------------------------->
+						<div class="text-center">
+							<% if !current_or_guest_user.voted_for? @article %>
+								<p>Like this Article?</p>
+								<%= link_to like_article_path(@article), method: :put do %>
+									<button class="btn">
+										<i class="far fa-heart"></i>
+									</button>
+								<% end %>
+							<% end %>
+						</div>
+            <!-----------------------------/ Vote ---------------------------->
+
+						<% if user_signed_in? %>
+              <div class="text-center mt-3">
+                <%= link_to "Create New", new_article_path, :class=>"link"%>
+                <%= link_to "Edit", edit_article_path, :class=>"mx-3 link"%>
+                <%= link_to "Delete", article_path, method: :delete, data:{confirm: 'Are you sure?'}, :class=>"link"%>
+              </div>
+						<% end %>
+					</div>
+					</div>
+					<footer class="footer">Site Engineered By <a href="https://github.com/kiiilllerbot" target="_blank">Shimol Khan</a> With <i class="far fa-heart"></i></footer>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<div class="back-to-top"></div>
+
+<!-- SVG masks -->
+<svg class="svg-defs">
+	<clipPath id="avatar-box">
+		<path
+			d="M1.85379 38.4859C2.9221 18.6653 18.6653 2.92275 38.4858 1.85453 56.0986.905299 77.2792 0 94 0c16.721 0 37.901.905299 55.514 1.85453 19.821 1.06822 35.564 16.81077 36.632 36.63137C187.095 56.0922 188 77.267 188 94c0 16.733-.905 37.908-1.854 55.514-1.068 19.821-16.811 35.563-36.632 36.631C131.901 187.095 110.721 188 94 188c-16.7208 0-37.9014-.905-55.5142-1.855-19.8205-1.068-35.5637-16.81-36.63201-36.631C.904831 131.908 0 110.733 0 94c0-16.733.904831-37.9078 1.85379-55.5141z" />
+	</clipPath>
+	<clipPath id="avatar-hexagon">
+		<path
+			d="M0 27.2891c0-4.6662 2.4889-8.976 6.52491-11.2986L31.308 1.72845c3.98-2.290382 8.8697-2.305446 12.8637-.03963l25.234 14.31558C73.4807 18.3162 76 22.6478 76 27.3426V56.684c0 4.6805-2.5041 9.0013-6.5597 11.3186L44.4317 82.2915c-3.9869 2.278-8.8765 2.278-12.8634 0L6.55974 68.0026C2.50414 65.6853 0 61.3645 0 56.684V27.2891z" />
+	</clipPath>
+</svg>
